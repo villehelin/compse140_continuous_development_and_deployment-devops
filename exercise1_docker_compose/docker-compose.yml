@@ -1,0 +1,23 @@
+version: "3"
+services:
+  helin-service1:
+    build: ./application1
+    volumes:
+      - ./logs:/logs
+    command: ["python", "app.py"]
+    networks:
+      - exercise1
+
+  helin-service2:
+    build: ./application2
+    volumes:
+      - ./logs:/logs
+    ports:
+      - "8000:8000"
+    command: ["node", "app.js"]
+    networks: 
+      - exercise1
+
+networks:
+  exercise1:
+    driver: bridge
