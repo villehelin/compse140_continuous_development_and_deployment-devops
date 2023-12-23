@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  helin-ex2-service1:
+    build: 
+      context: .
+      dockerfile: ./service1/Dockerfile
+    command: ["python", "app.py"]
+    networks:
+      - exercise2
+
+  helin-ex2-service2:
+    build: 
+      context: .
+      dockerfile: ./service2/Dockerfile
+    command: ["node", "app.js"]
+    networks: 
+      - exercise2
+
+  helin-ex2-monitor:
+    build: 
+      context: .
+      dockerfile: ./monitor/Dockerfile
+    command: ["node", "monitor.js"]
+    ports:
+      - "8087:8087"
+    networks: 
+      - exercise2
+      
+  helin-ex2-rabbitmq:
+    image: "rabbitmq:latest"
+    networks: 
+      - exercise2
+
+networks:
+  exercise2:
+    driver: bridge
