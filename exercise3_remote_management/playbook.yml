@@ -1,0 +1,16 @@
+---
+- name: playbook
+  hosts: ansible_clients
+  tasks:
+    - name: ensure that the target host has the latest version of git version management system
+      apt:
+        name: git
+        state: latest
+
+    - name: queries the uptime of target host
+      command: uptime
+      register: UPTIME
+
+    - name: display uptime
+      debug:
+        var: UPTIME.stdout

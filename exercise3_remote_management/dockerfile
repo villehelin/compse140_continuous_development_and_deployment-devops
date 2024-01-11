@@ -1,0 +1,14 @@
+FROM debian:12-slim
+
+WORKDIR /home
+COPY package.json ./
+COPY server.js ./
+
+RUN apt-get update && apt-get install -y nodejs npm openssh-server python3 python3-apt sudo net-tools openssl
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN useradd -m -s /bin/bash -G sudo -p $(openssl passwd -1 eee) ssluser
+RUN npm install
+
+EXPOSE 22
+
+CMD service ssh start && node server.js
