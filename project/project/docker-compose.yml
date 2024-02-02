@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: "rabbitmq:latest"
+  
+  gateway:
+    image: gateway
+    build: 
+      context: ./api_gateway
+    ports:
+      - 8083:8083
+  
+  service1:
+    image: service1
+    build: 
+      context: ./service1
+  
+  service2:
+    image: service2
+    build:
+      context: ./service2
+  
+  monitor:
+    image: monitor
+    build:
+     context: ./monitor

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service messager {
+  rpc send_message (message_request) returns (count_reply) {}
+}
+
+message message_request {
+  string message = 1;
+}
+
+message count_reply {
+  int32 count = 1;
+}
